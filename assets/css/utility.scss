@@ -13,11 +13,11 @@
 }
 
 .button {
-	@include button-style($primary-color, white);
+	@include button-style(map-get($colors, primary), white);
 }
 
 .button-outline {
-	@include button-style(white, $primary-color);
+	@include button-style(white, map-get($colors, primary));
 }
 
 .container {
@@ -26,28 +26,8 @@
 	padding: 20px;
 }
 
-.radius-12 {
-	border-radius: 12px;
-}
-
-.radius-full {
-	border-radius: 50%;
-}
-
 .bg-blue-sky {
-	background-color: $blue-sky-color;
-}
-
-.flex {
-	display: flex;
-}
-
-.items-center {
-	align-items: center;
-}
-
-.justify-center {
-	justify-content: center;
+	background-color: map-get($colors, blue-sky);
 }
 
 .text-white {
@@ -58,21 +38,38 @@
 	width: 100%;
 }
 
+.h-full {
+	height: 100%;
+}
+
 .hide-on-mobile {
 	@media (max-width: $mobile-breakpoint) {
 		display: none;
 	}
 }
+
 @each $name, $size in $font-sizes {
 	.font-size-#{$name} {
 		font-size: $size;
 	}
 }
 
-@mixin grid-container($columns, $gap) {
+@mixin grid-container($columns, $gap, $responsive) {
 	display: grid;
 	grid-template-columns: repeat($columns, 1fr);
 	gap: $gap;
+
+	@if $responsive {
+		@media (max-width: $mobile-breakpoint) {
+			@if $columns == 4 {
+				grid-template-columns: repeat(2, 1fr);
+			} @else if $columns == 2 {
+				grid-template-columns: repeat(1, 1fr);
+			} @else {
+				grid-template-columns: repeat(1, 1fr);
+			}
+		}
+	}
 }
 
 @mixin grid-item($span) {
@@ -81,12 +78,16 @@
 
 @each $col in $columns {
 	@each $gap in $gaps {
-		.grid-#{$col}-#{$gap} {
-			@include grid-container($col, $gap);
+		.grid-#{$col}-#{$gap}-no-responsive {
+			@include grid-container($col, $gap, false);
+		}
+	}
+}
 
-			@media (max-width: $mobile-breakpoint) {
-				grid-template-columns: repeat(2, 1fr);
-			}
+@each $col in $columns {
+	@each $gap in $gaps {
+		.grid-#{$col}-#{$gap} {
+			@include grid-container($col, $gap, true);
 		}
 	}
 }
@@ -207,4 +208,95 @@
 	.py-#{$name} {
 		@include padding-vertical($size);
 	}
+}
+
+@each $name, $color in $colors {
+	.text-#{$name} {
+		color: $color;
+	}
+}
+
+@each $name, $color in $colors {
+	.bg-#{$name} {
+		background-color: $color;
+	}
+}
+
+@mixin border-radius($key) {
+	$radius: map-get($border-radius-values, $key);
+
+	border-radius: $radius;
+}
+
+@each $key in map-keys($border-radius-values) {
+	.radius-#{$key} {
+		@include border-radius($key);
+	}
+}
+
+@mixin flex($direction: row, $align: center, $justify: center) {
+	display: flex;
+	flex-direction: $direction;
+	align-items: map-get($align-items, $align);
+	justify-content: map-get($justify-content, $justify);
+}
+
+.flex {
+	@include flex();
+}
+
+.flex-wrap {
+	flex-wrap: wrap;
+}
+
+.flex-row {
+	@include flex(row);
+}
+
+.flex-column {
+	@include flex(column);
+}
+
+.items-center {
+	@include flex(row, center);
+}
+
+.items-start {
+	@include flex(row, start);
+}
+
+.items-end {
+	@include flex(row, end);
+}
+
+.items-baseline {
+	@include flex(row, baseline);
+}
+
+.items-stretch {
+	@include flex(row, stretch);
+}
+
+.justify-center {
+	@include flex(row, center, center);
+}
+
+.justify-start {
+	@include flex(row, center, start);
+}
+
+.justify-end {
+	@include flex(row, center, end);
+}
+
+.justify-between {
+	@include flex(row, center, between);
+}
+
+.justify-around {
+	@include flex(row, center, around);
+}
+
+.justify-evenly {
+	@include flex(row, center, evenly);
 }

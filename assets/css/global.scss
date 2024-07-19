@@ -8,7 +8,7 @@ body {
 .search-collapse {
 	display: flex;
 	align-items: center;
-	border: 1px solid $primary-color;
+	border: 1px solid map-get($colors, primary);
 	border-radius: 5px;
 	padding: 2px;
 	width: 500px;
@@ -49,7 +49,7 @@ body {
 	.bar {
 		width: 100%;
 		height: 3px;
-		background-color: $primary-color;
+		background-color: map-get($colors, primary);
 		border-radius: 2px;
 	}
 }
@@ -77,7 +77,7 @@ body {
 	width: 40px;
 	height: 40px;
 	border-radius: 50%;
-	background-color: $blue-sky-color;
+	background-color: map-get($colors, blue-sky);
 	color: white;
 	font-weight: bold;
 }
@@ -97,5 +97,9 @@ body {
 
 	.mobile-menu {
 		display: flex;
+	}
+
+	#box-step-registration .p-medium {
+		padding: 0px;
 	}
 }

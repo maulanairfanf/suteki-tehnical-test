@@ -9,10 +9,20 @@ $font-sizes: (
 $columns: 2, 3, 4, 5, 6;
 $gaps: 10px, 20px, 30px, 40px;
 
-$primary-color: #0aa8c1;
-$blue-sky-color: #3bd7f0;
+$colors: (
+	primary: #0aa8c1,
+	blue-sky: #3bd7f0,
+	orange: #fc871b,
+	orange-smooth: #fff5ec,
+	cyan: #0aa8c1,
+	cyan-smooth: #e7fdfd,
+	red: #e83158,
+	red-smooth: #fef0f3,
+	blue: #3a5ae3,
+	blue-smooth: #f2f5ff,
+);
 
-$mobile-breakpoint: 678px;
+$mobile-breakpoint: 768px;
 
 $margin-sizes: (
 	small: 8px,
@@ -28,4 +38,29 @@ $padding-sizes: (
 	large: 24px,
 	xlarge: 32px,
 	xxlarge: 40px,
+);
+
+$border-radius-values: (
+	4: 4px,
+	8: 8px,
+	12: 12px,
+	15: 15px,
+	rounded: 50%,
+);
+
+$align-items: (
+	center: center,
+	start: flex-start,
+	end: flex-end,
+	baseline: baseline,
+	stretch: stretch,
+);
+
+$justify-content: (
+	center: center,
+	start: flex-start,
+	end: flex-end,
+	between: space-between,
+	around: space-around,
+	evenly: space-evenly,
 );
