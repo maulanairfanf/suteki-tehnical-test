@@ -1,8 +1,8 @@
 <template>
 	<div class="container step-box-background radius-12">
-		<div class="grid-4-10px">
+		<div class="grid-4-10px" id="box-step-registration">
 			<div
-				class="grid-item-1 flex justify-center p-medium"
+				class="grid-item-1 flex justify-start p-medium"
 				v-for="(item, index) in data"
 				:key="index"
 			>
