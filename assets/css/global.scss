@@ -5,6 +5,16 @@ body {
 	font-family: 'Inter', sans-serif;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	padding: 0;
+	margin: 0;
+}
+
 .search-collapse {
 	display: flex;
 	align-items: center;
@@ -80,6 +90,10 @@ body {
 	background-color: map-get($colors, blue-sky);
 	color: white;
 	font-weight: bold;
+}
+
+.shadow {
+	box-shadow: 0px 10px 20px 0px #eff1f6;
 }
 
 @media screen and (max-width: $mobile-breakpoint) {

@@ -7,7 +7,7 @@
 	padding: 10px 20px;
 	text-decoration: none;
 	display: inline-block;
-	font-size: 14px;
+	font-size: 12px;
 	cursor: pointer;
 	border-radius: 5px;
 }
@@ -21,17 +21,13 @@
 }
 
 .container {
-	max-width: 80%;
+	max-width: 90%;
 	margin: 0 auto;
-	padding: 20px;
+	padding: 10px;
 }
 
 .bg-blue-sky {
 	background-color: map-get($colors, blue-sky);
-}
-
-.text-white {
-	color: white;
 }
 
 .w-full {
@@ -234,15 +230,21 @@
 	}
 }
 
-@mixin flex($direction: row, $align: center, $justify: center) {
+@mixin flex($direction: row, $align: null, $justify: null) {
 	display: flex;
 	flex-direction: $direction;
-	align-items: map-get($align-items, $align);
-	justify-content: map-get($justify-content, $justify);
+
+	@if $align {
+		align-items: $align;
+	}
+
+	@if $justify {
+		justify-content: $justify;
+	}
 }
 
 .flex {
-	@include flex();
+	display: flex;
 }
 
 .flex-wrap {
@@ -257,46 +259,25 @@
 	@include flex(column);
 }
 
-.items-center {
-	@include flex(row, center);
+@each $name, $value in $align-items {
+	.items-#{$name} {
+		align-items: $value;
+	}
 }
 
-.items-start {
-	@include flex(row, start);
+@each $name, $value in $justify-content {
+	.justify-#{$name} {
+		justify-content: $value;
+	}
+}
+@each $name, $weight in $font-weights {
+	.font-weight-#{$name} {
+		font-weight: $weight;
+	}
 }
 
-.items-end {
-	@include flex(row, end);
-}
-
-.items-baseline {
-	@include flex(row, baseline);
-}
-
-.items-stretch {
-	@include flex(row, stretch);
-}
-
-.justify-center {
-	@include flex(row, center, center);
-}
-
-.justify-start {
-	@include flex(row, center, start);
-}
-
-.justify-end {
-	@include flex(row, center, end);
-}
-
-.justify-between {
-	@include flex(row, center, between);
-}
-
-.justify-around {
-	@include flex(row, center, around);
-}
-
-.justify-evenly {
-	@include flex(row, center, evenly);
+@each $name, $position in $positions {
+	.position-#{$name} {
+		position: $position;
+	}
 }

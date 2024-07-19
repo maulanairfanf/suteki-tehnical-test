@@ -10,16 +10,19 @@ $columns: 2, 3, 4, 5, 6;
 $gaps: 10px, 20px, 30px, 40px;
 
 $colors: (
-	primary: #0aa8c1,
-	blue-sky: #3bd7f0,
-	orange: #fc871b,
-	orange-smooth: #fff5ec,
-	cyan: #0aa8c1,
-	cyan-smooth: #e7fdfd,
-	red: #e83158,
-	red-smooth: #fef0f3,
-	blue: #3a5ae3,
-	blue-smooth: #f2f5ff,
+	'white': #ffffff,
+	'primary': #0aa8c1,
+	'blue-sky': #3bd7f0,
+	'orange': #fc871b,
+	'orange-smooth': #fff5ec,
+	'cyan': #0aa8c1,
+	'cyan-smooth': #e7fdfd,
+	'red': #e83158,
+	'red-dop': #f35577,
+	'red-smooth': #fef0f3,
+	'blue': #3a5ae3,
+	'blue-smooth': #f2f5ff,
+	'blue-dop': #5471ed,
 );
 
 $mobile-breakpoint: 768px;
@@ -45,6 +48,7 @@ $border-radius-values: (
 	8: 8px,
 	12: 12px,
 	15: 15px,
+	40: 40px,
 	rounded: 50%,
 );
 
@@ -63,4 +67,24 @@ $justify-content: (
 	between: space-between,
 	around: space-around,
 	evenly: space-evenly,
+);
+
+$font-weights: (
+	'thin': 100,
+	'extra-light': 200,
+	'light': 300,
+	'normal': 400,
+	'medium': 500,
+	'semi-bold': 600,
+	'bold': 700,
+	'extra-bold': 800,
+	'black': 900,
+);
+
+$positions: (
+	'static': static,
+	'relative': relative,
+	'absolute': absolute,
+	'fixed': fixed,
+	'sticky': sticky,
 );
