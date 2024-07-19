@@ -2,7 +2,7 @@
 	<div class="container step-box-background radius-12">
 		<div class="grid-4-10px" id="box-step-registration">
 			<div
-				class="grid-item-1 flex justify-start p-medium"
+				class="grid-item-1 flex justify-start items-center p-medium"
 				v-for="(item, index) in data"
 				:key="index"
 			>
