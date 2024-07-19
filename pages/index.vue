@@ -1,7 +1,8 @@
 <template>
-	<h1>Index page</h1>
+	<StepRegistration />
 </template>
 <script setup>
+import StepRegistration from '@/components/StepRegistration.vue'
 definePageMeta({
 	title: 'My home page',
 })

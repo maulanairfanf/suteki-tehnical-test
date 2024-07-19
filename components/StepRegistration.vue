@@ -1,0 +1,40 @@
+<template>
+	<div class="container step-box-background radius-12">
+		<div class="grid-4-10px">
+			<div
+				class="grid-item-1 flex justify-center p-medium"
+				v-for="(item, index) in data"
+				:key="index"
+			>
+				<div>
+					<div class="circle flex items-center justify-center font-size-16">
+						{{ index + 1 }}
+					</div>
+				</div>
+				<div class="text-white ml-medium">
+					<div class="font-size-16">{{ item.title }}</div>
+					<div class="font-size-12 font-weight-light mt-small hide-on-mobile">
+						Consectetur adipiscing elit. Urna amet hac senectus in consequat
+						orci duis pellentesque.
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+<script setup>
+const data = [
+	{
+		title: 'Cari Kampus & Prodi',
+	},
+	{
+		title: 'Bandingkan',
+	},
+	{
+		title: 'Uji Potensi',
+	},
+	{
+		title: 'Daftar',
+	},
+]
+</script>
