@@ -27,23 +27,24 @@
 						>
 							<img v-if="item.image !== ''" :src="item.image" />
 						</div>
-						<div class="flex items-center justiy-between grid-1">
-							<h1 class="font-size-16 mr-small mt-small">{{ item.title }}</h1>
-							<div :class="item.color">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									width="24"
-									height="24"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-								>
-									<path d="M3 12h14l-4 4m0 0l4-4-4-4" />
-								</svg>
-							</div>
+						<div
+							class="flex items-center justiy-between grid-1 mt-small mx-small"
+						>
+							<h1 class="font-size-16 mr-small">{{ item.title }}</h1>
+							<svg
+								:class="item.color"
+								xmlns="http://www.w3.org/2000/svg"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<path d="M3 12h14l-4 4m0 0l4-4-4-4" />
+							</svg>
 						</div>
 					</div>
 				</div>
