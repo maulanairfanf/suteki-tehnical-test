@@ -1,32 +1,8 @@
-$primary-color: #0aa8c1;
-$button-padding: 10px 20px;
-$button-font-size: 16px;
+@import '@/assets/css/utility.scss';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
-// Mixin untuk gaya tombol
-@mixin button-style($bg-color, $color) {
-	background-color: $bg-color;
-	color: $color;
-	border: 1px solid $color;
-	padding: $button-padding;
-	text-decoration: none;
-	display: inline-block;
-	font-size: $button-font-size;
-	cursor: pointer;
-	border-radius: 5px;
-}
-
-.button {
-	@include button-style($primary-color, white);
-}
-
-.button-outline {
-	@include button-style(white, $primary-color);
-}
-
-.container {
-	max-width: 90%;
-	margin: 0 auto;
-	padding: 20px;
+body {
+	font-family: 'Inter', sans-serif;
 }
 
 .search-collapse {
@@ -48,7 +24,6 @@ $button-font-size: 16px;
 	}
 }
 
-/* Gaya untuk navbar */
 .navbar {
 	display: flex;
 	flex-wrap: wrap;
@@ -94,7 +69,20 @@ $button-font-size: 16px;
 	margin-top: 10px;
 }
 
-@media screen and (max-width: 768px) {
+.step-box-background {
+	background: linear-gradient(134.82deg, #126abb 0%, #0ab6c1 100%);
+}
+
+.circle {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background-color: $blue-sky-color;
+	color: white;
+	font-weight: bold;
+}
+
+@media screen and (max-width: $mobile-breakpoint) {
 	#desktop-navbar {
 		display: none;
 	}

@@ -1,0 +1,210 @@
+@import '@/assets/css/variable.scss';
+
+@mixin button-style($bg-color, $color) {
+	background-color: $bg-color;
+	color: $color;
+	border: 1px solid $color;
+	padding: 10px 20px;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+.button {
+	@include button-style($primary-color, white);
+}
+
+.button-outline {
+	@include button-style(white, $primary-color);
+}
+
+.container {
+	max-width: 80%;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+.radius-12 {
+	border-radius: 12px;
+}
+
+.radius-full {
+	border-radius: 50%;
+}
+
+.bg-blue-sky {
+	background-color: $blue-sky-color;
+}
+
+.flex {
+	display: flex;
+}
+
+.items-center {
+	align-items: center;
+}
+
+.justify-center {
+	justify-content: center;
+}
+
+.text-white {
+	color: white;
+}
+
+.w-full {
+	width: 100%;
+}
+
+.hide-on-mobile {
+	@media (max-width: $mobile-breakpoint) {
+		display: none;
+	}
+}
+@each $name, $size in $font-sizes {
+	.font-size-#{$name} {
+		font-size: $size;
+	}
+}
+
+@mixin grid-container($columns, $gap) {
+	display: grid;
+	grid-template-columns: repeat($columns, 1fr);
+	gap: $gap;
+}
+
+@mixin grid-item($span) {
+	grid-column: span $span;
+}
+
+@each $col in $columns {
+	@each $gap in $gaps {
+		.grid-#{$col}-#{$gap} {
+			@include grid-container($col, $gap);
+
+			@media (max-width: $mobile-breakpoint) {
+				grid-template-columns: repeat(2, 1fr);
+			}
+		}
+	}
+}
+
+@for $i from 1 through 6 {
+	.grid-item-#{$i} {
+		@include grid-item($i);
+	}
+}
+
+@mixin margin($size) {
+	margin: $size;
+}
+
+@mixin margin-top($size) {
+	margin-top: $size;
+}
+
+@mixin margin-right($size) {
+	margin-right: $size;
+}
+
+@mixin margin-bottom($size) {
+	margin-bottom: $size;
+}
+
+@mixin margin-left($size) {
+	margin-left: $size;
+}
+
+@each $name, $size in $margin-sizes {
+	.m-#{$name} {
+		@include margin($size);
+	}
+
+	.mt-#{$name} {
+		@include margin-top($size);
+	}
+
+	.mr-#{$name} {
+		@include margin-right($size);
+	}
+
+	.mb-#{$name} {
+		@include margin-bottom($size);
+	}
+
+	.ml-#{$name} {
+		@include margin-left($size);
+	}
+
+	.mx-#{$name} {
+		margin-left: $size;
+		margin-right: $size;
+	}
+
+	.my-#{$name} {
+		margin-top: $size;
+		margin-bottom: $size;
+	}
+}
+
+@mixin padding($size) {
+	padding: $size;
+}
+
+@mixin padding-top($size) {
+	padding-top: $size;
+}
+
+@mixin padding-right($size) {
+	padding-right: $size;
+}
+
+@mixin padding-bottom($size) {
+	padding-bottom: $size;
+}
+
+@mixin padding-left($size) {
+	padding-left: $size;
+}
+
+@mixin padding-horizontal($size) {
+	padding-left: $size;
+	padding-right: $size;
+}
+
+@mixin padding-vertical($size) {
+	padding-top: $size;
+	padding-bottom: $size;
+}
+
+@each $name, $size in $padding-sizes {
+	.p-#{$name} {
+		@include padding($size);
+	}
+
+	.pt-#{$name} {
+		@include padding-top($size);
+	}
+
+	.pr-#{$name} {
+		@include padding-right($size);
+	}
+
+	.pb-#{$name} {
+		@include padding-bottom($size);
+	}
+
+	.pl-#{$name} {
+		@include padding-left($size);
+	}
+
+	.px-#{$name} {
+		@include padding-horizontal($size);
+	}
+
+	.py-#{$name} {
+		@include padding-vertical($size);
+	}
+}
