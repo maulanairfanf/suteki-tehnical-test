@@ -1,10 +1,10 @@
 <template>
 	<nav class="navbar container">
 		<div class="navbar-logo">
-			<img src="@/assets/logo.png" alt="Logo" />
+			<img src="@/assets/images/logo.png" alt="Logo" />
 		</div>
 		<div class="search-collapse" id="desktop-navbar">
-			<img src="@/assets/search-icon.png" alt="Search Icon" />
+			<img src="@/assets/images/search-icon.png" alt="Search Icon" />
 			<input
 				type="text"
 				placeholder="Cari kampus/prodi impian Anda disini..."
@@ -24,7 +24,7 @@
 		<!-- Hidden menu for mobile -->
 		<div class="mobile-menu" v-if="isMenuOpen">
 			<div class="search-collapse">
-				<img src="@/assets/search-icon.png" alt="Search Icon" />
+				<img src="@/assets/images/search-icon.png" alt="Search Icon" />
 				<input
 					type="text"
 					placeholder="Cari kampus/prodi impian Anda disini..."
