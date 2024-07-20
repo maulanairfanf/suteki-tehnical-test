@@ -1,10 +1,10 @@
 <template>
 	<div
 		:class="getColorBackground"
-		class="radius-40 flex justify-between items-center p-small"
+		class="radius-40 flex justify-between items-center p-xsmall"
 		style="width: min-content"
 	>
-		<span class="font-size-14 text-white" style="white-space: nowrap">{{
+		<span class="font-size-12 text-white" style="white-space: nowrap">{{
 			getTitle
 		}}</span>
 		<div
