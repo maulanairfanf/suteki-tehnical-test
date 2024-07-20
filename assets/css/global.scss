@@ -129,6 +129,42 @@ h6 {
 	background-color: #e6e9ed;
 }
 
+.cursor-pointer {
+	cursor: pointer;
+}
+
+.carousel {
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+}
+
+.carousel-container {
+	display: flex;
+	transition: transform 0.5s ease-in-out;
+}
+
+.carousel-item {
+	min-width: 100%;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+.carousel-item img {
+	max-width: 100%;
+	height: auto;
+}
+
+.pointer-carousel {
+	width: 10px;
+	height: 10px;
+}
+
+.pointer-carousel-active {
+	width: 20px;
+	height: 10px;
+}
+
 @media screen and (max-width: $mobile-breakpoint) {
 	#desktop-navbar {
 		display: none;
