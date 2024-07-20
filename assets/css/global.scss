@@ -3,6 +3,8 @@
 
 body {
 	font-family: 'Inter', sans-serif;
+	margin: 0px;
+	padding: 0px;
 }
 
 h1,
@@ -96,6 +98,37 @@ h6 {
 	box-shadow: 0px 10px 20px 0px #eff1f6;
 }
 
+.card {
+	display: flex;
+}
+
+.card .background-image {
+	object-fit: cover;
+	z-index: 1;
+	height: 240px;
+}
+
+.card .card-header {
+	z-index: 2;
+	position: relative;
+	padding: 16px;
+}
+
+.card .card-body {
+	z-index: 2;
+	position: relative;
+	padding: 16px;
+	margin: 0 10px 0 10px;
+	border-radius: 8px;
+}
+
+.horizontal-line {
+	border: none;
+	height: 1px;
+	width: 100%;
+	background-color: #e6e9ed;
+}
+
 @media screen and (max-width: $mobile-breakpoint) {
 	#desktop-navbar {
 		display: none;
@@ -115,5 +148,11 @@ h6 {
 
 	#box-step-registration .p-medium {
 		padding: 0px;
+	}
+
+	.card .card-body {
+		padding: 8px;
+		margin: 0 0 0 0;
+		border-radius: 0px;
 	}
 }

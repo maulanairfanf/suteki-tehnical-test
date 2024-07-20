@@ -21,9 +21,9 @@
 }
 
 .container {
-	max-width: 90%;
+	width: 80%;
 	margin: 0 auto;
-	padding: 10px;
+	padding: 20px;
 }
 
 .bg-blue-sky {
@@ -279,5 +279,11 @@
 @each $name, $position in $positions {
 	.position-#{$name} {
 		position: $position;
+	}
+}
+
+@media screen and (max-width: $mobile-breakpoint) {
+	.container {
+		width: 90%;
 	}
 }
