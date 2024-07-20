@@ -10,6 +10,7 @@ $columns: 2, 3, 4, 5, 6;
 $gaps: 10px, 20px, 30px, 40px;
 
 $colors: (
+	'black': #000000,
 	'white': #ffffff,
 	'primary': #0aa8c1,
 	'blue-sky': #3bd7f0,
@@ -46,6 +47,7 @@ $padding-sizes: (
 );
 
 $border-radius-values: (
+	2: 2px,
 	4: 4px,
 	8: 8px,
 	12: 12px,
