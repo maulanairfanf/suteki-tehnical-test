@@ -1,6 +1,6 @@
 <template>
 	<div class="container">
-		<div class="step-box-background radius-12 p-small">
+		<div class="linear-background radius-12 p-small">
 			<div class="grid-4-10px" id="box-step-registration">
 				<div
 					class="grid-item-1 flex justify-start items-center p-medium"
