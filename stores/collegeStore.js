@@ -7,13 +7,13 @@ export const useCollegeStore = defineStore('collegeStore', {
 		studyPrograms: [],
 		paginationCollege: {
 			page: 1,
-			perPage: 0,
-			total: 10,
+			perPage: 8,
+			total: 0,
 		},
 		paginationStudyProgram: {
 			page: 1,
-			perPage: 0,
-			total: 10,
+			perPage: 8,
+			total: 0,
 		},
 	}),
 
@@ -26,9 +26,8 @@ export const useCollegeStore = defineStore('collegeStore', {
 
 			try {
 				const data = await $fetch('/api/open/college/all', {
-					param: params,
+					params: params,
 				})
-				console.log('data fetchAllColleges', data)
 				if (data) {
 					if (this.paginationCollege.page === 1) {
 						this.colleges = data.data
@@ -36,11 +35,36 @@ export const useCollegeStore = defineStore('collegeStore', {
 						this.colleges = [...this.colleges, ...data.data]
 					}
 					this.paginationCollege.page = data.meta.currentPage
-					this.paginationCollege.perPage = data.meta.collegePerPage
 					this.paginationCollege.total = data.meta.totalItems
+					await this.fetchCollegeDetails(data.data)
 				}
 			} catch (error) {
 				console.error('An error occurred while fetching colleges:', error)
+			}
+		},
+
+		async fetchCollegeDetails(colleges) {
+			if (colleges.length === 0) return
+
+			try {
+				const detailsPromises = colleges.map(college =>
+					$fetch(`/api/open/college/${college.id}`)
+				)
+				const detailsResponses = await Promise.all(detailsPromises)
+				const updatedColleges = colleges.map((college, index) => ({
+					...college,
+					details: detailsResponses[index][0],
+				}))
+				this.colleges = this.colleges.map(college => {
+					const updated = updatedColleges.find(c => c.id === college.id)
+					return updated ? updated : college
+				})
+				console.log('data fetchAllColleges', this.colleges)
+			} catch (error) {
+				console.error(
+					'An error occurred while fetching college details:',
+					error
+				)
 			}
 		},
 
@@ -77,7 +101,6 @@ export const useCollegeStore = defineStore('collegeStore', {
 						this.studyPrograms = [...this.colleges, ...data.data]
 					}
 					this.paginationStudyProgram.page = data.meta.currentPage
-					this.paginationStudyProgram.perPage = data.meta.collegePerPage
 					this.paginationStudyProgram.total = data.meta.totalItems
 				}
 			} catch (error) {

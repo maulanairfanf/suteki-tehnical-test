@@ -1,28 +1,36 @@
 <template>
 	<div class="grid-item-1 position-relative card">
-		<div class="position-relative">
+		<div class="position-relative w-full">
 			<img
-				src="@/assets/images/background.jpg"
-				class="w-full radius-8 position-absolute background-image"
-				alt="alt"
+				:src="getFullImageUrl(item.details?.thumbnail)"
+				class="w-full radius-8 position-absolute background-image font-size-8"
+				:alt="'background ' + item.name"
 			/>
 			<div class="card-header">
-				<Badge color="blue" />
-				<Badge color="red" akreditasi="A" class="mt-small" />
+				<Badge
+					color="blue"
+					v-if="item.details && item.details.partnerships === true"
+					class="mb-small"
+				/>
+				<Badge
+					color="red"
+					v-if="item.details && item.details.accreditation === true"
+					:akreditasi="getAccreditation"
+				/>
 				<div
-					class="mt-medium bg-white radius-8 p-small"
+					class="mt-xlarge bg-white radius-8 p-small"
 					style="width: min-content"
 				>
 					<img
-						src="@/assets/images/dummy-uni.png"
+						:src="getFullImageUrl(item.details?.logo)"
 						class="radius-8"
-						style="object-fit: cover"
-						alt=""
+						style="object-fit: cover; width: 40px; height: 40px"
+						:alt="'logo ' + item.name"
 					/>
 				</div>
 			</div>
 			<div class="card-body shadow bg-white">
-				<h1 class="font-size-14">Politeknik Elektronika Negeri Surabaya</h1>
+				<h1 class="font-size-14">{{ item.name }}</h1>
 				<div class="font-size-12 text-blue flex items-center my-small">
 					<svg
 						width="12"
@@ -36,16 +44,23 @@
 							fill="#3A5AE3"
 						/>
 					</svg>
-					<span class="ml-small"> Jakarta Selatan, DKI Jakarta </span>
+					<span class="ml-small">{{ getLocationn }}</span>
 				</div>
 				<div class="flex items-center my-small">
-					<div class="bg-primary" style="width: 20px; height: 2px"></div>
-					<div class="ml-small text-primary">Negeri</div>
+					<div
+						:class="getBgEducationType"
+						style="width: 20px; height: 2px"
+					></div>
+					<div class="ml-small" :class="getColorEducationType">
+						{{ item.details?.education_type }}
+					</div>
 				</div>
 				<div>
 					<span class="font-size-12 font-weight-light">Uang masuk dari</span>
 					<br />
-					<span class="font-size-14 font-weight-bold">Rp 350.000</span>
+					<span class="font-size-14 font-weight-bold">{{
+						formatRupiah(item.details?.min_registration_fee)
+					}}</span>
 				</div>
 				<button class="button radius-40 mt-small flex p-small">
 					<img src="@/assets/images/globe-icon.svg" class="mr-small" />
@@ -57,4 +72,52 @@
 </template>
 <script setup>
 import Badge from './Badge.vue'
+
+const props = defineProps({
+	item: {
+		type: Object,
+		default: () => {},
+		required: true,
+	},
+})
+
+const { getFullImageUrl } = useImageUrl()
+const { formatRupiah } = useCurrency()
+
+const getColorEducationType = computed(() => {
+	return props.item.details?.education_type === 'Negeri'
+		? 'text-orange'
+		: 'text-primary'
+})
+
+const getBgEducationType = computed(() => {
+	return props.item.details?.education_type === 'Negeri'
+		? 'bg-orange'
+		: 'bg-primary'
+})
+
+const getAccreditation = computed(() => {
+	if (props.item.details?.accreditation.length === 1) {
+		return props.item.details?.accreditation
+	} else {
+		switch (props.item.details?.accreditation) {
+			case 'Unggul':
+				return 'A+'
+			case 'Baik Sekali':
+				return 'B+'
+			case 'Sangat Baik':
+				return 'B'
+			case 'Baik':
+				return 'C'
+			default:
+				return ''
+		}
+	}
+})
+
+const getLocationn = computed(() => {
+	const city = props.item.details?.campuses[0].city
+	const province = props.item.details?.campuses[0].province
+	return city + ' ' + province
+})
 </script>
