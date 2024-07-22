@@ -66,9 +66,9 @@ const data = [
 	{
 		title: 'Jurusan',
 		image: '',
-		bgColor: 'bg-cyan-smooth',
-		bgColorInside: 'bg-cyan',
-		color: 'text-cyan',
+		bgColor: 'bg-primary-smooth',
+		bgColorInside: 'bg-primary',
+		color: 'text-primary',
 	},
 	{
 		title: 'Pendaftaran',
