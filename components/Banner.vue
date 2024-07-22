@@ -2,19 +2,22 @@
 	<div class="container">
 		<div class="carousel">
 			<div class="carousel-container" :style="carouselStyle">
-				<div v-for="(item, index) in items" :key="index" class="carousel-item">
+				<div
+					v-for="(item, index) in collegeStore.banner"
+					:key="index"
+					class="carousel-item"
+				>
 					<img
 						v-if="index === currentIndex"
-						class="w-full h-full radius-8"
-						style="object-fit: cover"
-						:src="item.image"
+						class="w-full radius-8 carousel-image"
+						:src="getFullImageUrl(item.image)"
 						:alt="item.title"
 					/>
 				</div>
 			</div>
 			<div class="flex items-center justify-center mt-medium">
 				<div
-					v-for="index in items.length"
+					v-for="index in collegeStore.banner.length"
 					class="mx-xsmall cursor-pointer"
 					:class="
 						currentIndex === index - 1
@@ -31,19 +34,24 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import banner from '@/assets/images/banner.png'
-import banner2 from '@/assets/images/banner-2.png'
-import banner3 from '@/assets/images/banner-3.png'
 
-const items = [
-	{ image: banner, title: 'Slide 1' },
-	{ image: banner2, title: 'Slide 2' },
-	{ image: banner3, title: 'Slide 3' },
-]
+import { useCollegeStore } from '@/stores/collegeStore'
+
+const config = useRuntimeConfig()
+const baseUrl = config.public.apiBaseUrl
+const collegeStore = useCollegeStore()
+
+const getFullImageUrl = relativePath => {
+	return `${baseUrl}${relativePath}`
+}
 
 const currentIndex = ref(0)
 
 const carouselStyle = computed(() => ({
 	transform: `translateX(-${currentIndex.value * 100}%)`,
 }))
+
+onMounted(async () => {
+	await collegeStore.fetchBanner()
+})
 </script>

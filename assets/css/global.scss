@@ -152,7 +152,7 @@ h6 {
 
 .carousel-item img {
 	max-width: 100%;
-	height: auto;
+	height: 300px;
 }
 
 .pointer-carousel {
@@ -190,5 +190,9 @@ h6 {
 		padding: 8px;
 		margin: 0 0 0 0;
 		border-radius: 0px;
+	}
+
+	.carousel-item img {
+		height: 100px;
 	}
 }
