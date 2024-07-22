@@ -1,75 +1,17 @@
-# Nuxt 3 Minimal Starter
+# How To Run
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## Git Clone
 
-## Setup
+git clone this project
 
-Make sure to install the dependencies:
+## Environment
 
-```bash
-# npm
-npm install
+rename file ".env.example" to ".env" and add this link "https://apicampusdir.civitas.id" to varible API_BASE_URL and add this api key 4Qe7h5NcgCu1EPDzCKIO to variable API_KEY_DEV
 
-# pnpm
-pnpm install
+## npm install
 
-# yarn
-yarn install
+to install all modules in package.json
 
-# bun
-bun install
-```
+## npm run dev
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+to run your app
