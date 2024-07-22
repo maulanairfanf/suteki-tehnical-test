@@ -9,12 +9,12 @@
 			<div class="card-header">
 				<Badge
 					color="blue"
-					v-if="item.details && item.details.partnerships === true"
+					v-if="item.details && item.details.partnerships !== null"
 					class="mb-small"
 				/>
 				<Badge
 					color="red"
-					v-if="item.details && item.details.accreditation === true"
+					v-if="item.details && item.details.accreditation"
 					:akreditasi="getAccreditation"
 				/>
 				<div
@@ -105,10 +105,8 @@ const getAccreditation = computed(() => {
 				return 'A+'
 			case 'Baik Sekali':
 				return 'B+'
-			case 'Sangat Baik':
-				return 'B'
 			case 'Baik':
-				return 'C'
+				return 'B'
 			default:
 				return ''
 		}
@@ -118,6 +116,10 @@ const getAccreditation = computed(() => {
 const getLocationn = computed(() => {
 	const city = props.item.details?.campuses[0].city
 	const province = props.item.details?.campuses[0].province
-	return city + ' ' + province
+	if (city === '' && province === '') {
+		return ''
+	} else {
+		return city + ', ' + province
+	}
 })
 </script>
