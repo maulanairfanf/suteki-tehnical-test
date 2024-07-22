@@ -85,8 +85,9 @@ export const useCollegeStore = defineStore('collegeStore', {
 
 		async fetchStudyPrograms() {
 			const params = {
-				perPage: this.paginationCollege.perPage,
-				page: this.paginationCollege.page,
+				perPage: this.paginationStudyProgram.perPage,
+				page: this.paginationStudyProgram.page,
+				full: true,
 			}
 			try {
 				const data = await $fetch('/api/open/studyprogram/all', {
@@ -98,7 +99,7 @@ export const useCollegeStore = defineStore('collegeStore', {
 					if (this.paginationStudyProgram.page === 1) {
 						this.studyPrograms = data.data
 					} else {
-						this.studyPrograms = [...this.colleges, ...data.data]
+						this.studyPrograms = [...this.studyPrograms, ...data.data]
 					}
 					this.paginationStudyProgram.page = data.meta.currentPage
 					this.paginationStudyProgram.total = data.meta.totalItems
