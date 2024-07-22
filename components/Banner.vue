@@ -34,17 +34,12 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-
+import { useImageUrl } from '@/composables/useImageUrl'
 import { useCollegeStore } from '@/stores/collegeStore'
 
-const config = useRuntimeConfig()
-const baseUrl = config.public.apiBaseUrl
 const collegeStore = useCollegeStore()
 
-const getFullImageUrl = relativePath => {
-	return `${baseUrl}${relativePath}`
-}
-
+const { getFullImageUrl } = useImageUrl()
 const currentIndex = ref(0)
 
 const carouselStyle = computed(() => ({
