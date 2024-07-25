@@ -1,40 +1,46 @@
 // composables/useApiFetch.ts
 import { useRuntimeConfig } from '#app'
 
-interface UseApiFetchOptions extends RequestInit {
+interface UseApiFetchOptions {
+	method?:
+		| 'GET'
+		| 'POST'
+		| 'PUT'
+		| 'DELETE'
+		| 'HEAD'
+		| 'PATCH'
+		| 'CONNECT'
+		| 'OPTIONS'
+		| 'TRACE'
 	params?: Record<string, any>
+	body?: Record<string, any>
+	headers?: Record<string, string>
 }
 
 export const useApiFetch = async (
-	url: string,
-	options: UseApiFetchOptions = { method: 'GET' }
+	endpoint: string,
+	{ method = 'GET', params, body, headers }: UseApiFetchOptions = {}
 ) => {
 	const runtimeConfig = useRuntimeConfig()
 
-	// Extract params and method from options
-	const { params, method = 'GET', ...fetchOptions } = options
-
-	// Build query string from params
 	const queryString = params ? new URLSearchParams(params).toString() : ''
-	const fullUrl = queryString ? `${url}?${queryString}` : url
+	const fullUrl = queryString ? `${endpoint}?${queryString}` : endpoint
 
-	// Configure default headers
-	const headers = {
+	const defaultHeaders = {
 		'api-key': runtimeConfig.public.apiKeyDev,
-		...fetchOptions.headers,
+		...headers,
 	}
 
-	const fetchOptionsWithDefaults: RequestInit = {
+	const fetchOptions = {
 		method,
-		headers,
-		...fetchOptions,
+		headers: defaultHeaders,
+		body: method !== 'GET' && body ? JSON.stringify(body) : null,
 	}
 
 	try {
-		const response = await $fetch(fullUrl, fetchOptionsWithDefaults)
+		const response = await $fetch(fullUrl, fetchOptions)
 		return { data: response, error: null }
 	} catch (error) {
-		console.error('Error fetching data:', error)
 		return { data: null, error }
 	}
 }

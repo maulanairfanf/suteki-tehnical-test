@@ -21,11 +21,6 @@ export default defineNuxtConfig({
 					target: process.env.API_BASE_URL,
 					changeOrigin: true,
 					rewrite: path => path.replace(/^\/api/, ''),
-					configure: (proxy, options) => {
-						proxy.on('proxyReq', (proxyReq, req, res) => {
-							proxyReq.setHeader('api-key', process.env.API_KEY_DEV || '')
-						})
-					},
 				},
 			},
 		},

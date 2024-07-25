@@ -46,5 +46,7 @@ const carouselStyle = computed(() => ({
 	transform: `translateX(-${currentIndex.value * 100}%)`,
 }))
 
-await collegeStore.fetchBanner()
+onMounted(async () => {
+	await collegeStore.fetchBanner()
+})
 </script>

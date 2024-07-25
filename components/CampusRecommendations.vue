@@ -33,7 +33,7 @@ import Header from './reusable/Header.vue'
 import Card from './reusable/Card.vue'
 import { useCollegeStore } from '@/stores/collegeStore'
 
-const isLoading = ref(false)
+const isLoading = ref(true)
 const collegeStore = useCollegeStore()
 
 async function handleLoadMore() {
@@ -49,5 +49,8 @@ const otherCampus = computed(() => {
 	)
 })
 
-collegeStore.fetchAllColleges()
+onMounted(async () => {
+	collegeStore.fetchAllColleges()
+	isLoading.value = false
+})
 </script>
