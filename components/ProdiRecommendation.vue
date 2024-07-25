@@ -2,15 +2,12 @@
 	<div class="container">
 		<Header
 			title="Rekomendasi Jurusan/Prodi"
-			description="Memberikan sistim pelayanan untuk para calon mahasiswa Jawa Barat dan Banten"
+			description="Memberikan sistem pelayanan untuk para calon mahasiswa Jawa Barat dan Banten"
 		/>
-		<div
-			class="grid-4-20px"
-			v-if="!isLoading && collegeStore.studyPrograms.length > 0"
-		>
+		<div class="grid-4-20px" v-if="studyPrograms.length > 0">
 			<div
 				class="grid-item-1 p-large radius-8"
-				v-for="(item, index) in collegeStore.studyPrograms"
+				v-for="(item, index) in studyPrograms"
 				:key="index"
 				:class="getBoxColor(item.field)"
 			>
@@ -31,19 +28,67 @@
 		</div>
 		<div class="flex items-center justify-center my-medium pb-medium">
 			<hr class="hide-on-mobile horizontal-line" />
-			<button class="button-outline w-full mx-small" @click="handleLoadMore()">
+			<button class="button-outline w-full mx-small" @click="handleLoadMore">
 				Kampus Lainnya + {{ otherStudyProgram }}
 			</button>
 			<hr class="hide-on-mobile horizontal-line" />
 		</div>
 	</div>
 </template>
+
 <script setup>
 import Header from './reusable/Header.vue'
-import { useCollegeStore } from '@/stores/collegeStore'
+import { ref, computed } from 'vue'
+import { useApi } from '@/composables/useApi'
 
 const isLoading = ref(true)
-const collegeStore = useCollegeStore()
+const studyPrograms = ref([])
+const paginationStudyProgram = ref({
+	page: 1,
+	perPage: 8,
+	total: 0,
+})
+
+const params = {
+	perPage: paginationStudyProgram.value.perPage,
+	page: paginationStudyProgram.value.page,
+	full: true,
+}
+
+const { data, error, refresh, status } = await useApi(
+	'/open/studyprogram/all',
+	params
+)
+console.log('data', data)
+if (data.value) {
+	if (paginationStudyProgram.value.page === 1) {
+		studyPrograms.value = data.value.data
+	} else {
+		studyPrograms.value = [...studyPrograms.value, ...data.value.data]
+	}
+	paginationStudyProgram.value.page = data.value.meta.currentPage
+	paginationStudyProgram.value.total = data.value.meta.totalItems
+} else {
+	console.error('Error fetching study programs:', error.value)
+}
+
+async function loadMoreStudyPrograms() {
+	paginationStudyProgram.value.page += 1
+	refresh()
+}
+
+const otherStudyProgram = computed(() => {
+	return (
+		paginationStudyProgram.value.total -
+		paginationStudyProgram.value.perPage * paginationStudyProgram.value.page
+	)
+})
+
+async function handleLoadMore() {
+	isLoading.value = true
+	await loadMoreStudyPrograms()
+	isLoading.value = false
+}
 
 function getBgColor(payload) {
 	const lowerPayload = payload.toLowerCase()
@@ -80,23 +125,4 @@ function getBoxColor(payload) {
 			return 'bg-purple-smooth'
 	}
 }
-
-const otherStudyProgram = computed(() => {
-	return (
-		collegeStore.paginationStudyProgram.total -
-		collegeStore.paginationStudyProgram.perPage *
-			collegeStore.paginationStudyProgram.page
-	)
-})
-
-async function handleLoadMore() {
-	isLoading.value = true
-	await collegeStore.loadMoreStudyPrograms()
-	isLoading.value = false
-}
-
-onMounted(async () => {
-	await collegeStore.fetchStudyPrograms()
-	isLoading.value = false
-})
 </script>

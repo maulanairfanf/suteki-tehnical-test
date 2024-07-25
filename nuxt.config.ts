@@ -12,7 +12,7 @@ export default defineNuxtConfig({
 			apiKeyDev: process.env.API_KEY_DEV,
 		},
 	},
-	ssr: false,
+	ssr: true,
 	modules: ['@pinia/nuxt'],
 	vite: {
 		server: {
