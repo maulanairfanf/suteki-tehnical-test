@@ -1,15 +1,18 @@
 <template>
-	<ul>
-		<li v-for="(item, index) in list" :key="index">
-			{{ item.name }}
-		</li>
-	</ul>
-	<button type="button" @click="handlePageChange()">nextPage</button>
-	<!-- <Banner />
-	<StepRegistration />
-	<AboutUs />
-	<CampusRecommendations />
-	<ProdiRecommendation /> -->
+	<div>
+		<div v-if="studyProgramPending">Loading..</div>
+		<ul v-else>
+			<li v-for="(item, index) in studyProgramList.data" :key="index">
+				{{ item.name }}
+			</li>
+		</ul>
+		<button type="button" @click="handlePageChange()">nextPage</button>
+		<!-- <Banner />
+		<StepRegistration />
+		<AboutUs />
+		<CampusRecommendations />
+		<ProdiRecommendation /> -->
+	</div>
 </template>
 <script setup>
 import Banner from '@/components/Banner.vue'
@@ -26,27 +29,18 @@ const page = ref(1)
 const perPage = ref(5)
 const list = ref([])
 
-const url = computed(() => {
-	return `/api/open/studyprogram/all?page=${page.value}`
-})
+// const url = computed(() => {
+// 	return `/api/open/studyprogram/all?page=${page.value}`
+// })
 
-const { data, error, refresh } = await useFetch(url, {
-	watch: [page],
-})
-
-list.value = data.value.data
+const {
+	studyProgramList,
+	StudyProgramError,
+	studyProgramPending,
+	fetchStudyProgram,
+} = useStudyProgram({ page: page, perPage: perPage })
 
 const handlePageChange = () => {
 	page.value++
 }
-
-watch(
-	() => data.value,
-	newValue => {
-		if (newValue) {
-			console.log('newaValue', newValue)
-			list.value = [...list.value, ...newValue.data]
-		}
-	}
-)
 </script>
