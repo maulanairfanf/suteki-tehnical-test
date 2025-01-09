@@ -50,7 +50,7 @@ const otherCampus = computed(() => {
 })
 
 onMounted(async () => {
-	await collegeStore.fetchAllColleges()
+	collegeStore.fetchAllColleges()
 	isLoading.value = false
 })
 </script>

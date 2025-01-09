@@ -24,62 +24,58 @@ export const useCollegeStore = defineStore('collegeStore', {
 				page: this.paginationCollege.page,
 			}
 
-			try {
-				const data = await $fetch('/api/open/college/all', {
-					params: params,
-				})
-				if (data) {
-					if (this.paginationCollege.page === 1) {
-						this.colleges = data.data
-					} else {
-						this.colleges = [...this.colleges, ...data.data]
-					}
-					this.paginationCollege.page = data.meta.currentPage
-					this.paginationCollege.total = data.meta.totalItems
-					await this.fetchCollegeDetails(data.data)
+			const { data, error } = await useApiFetch('/api/open/college/all', {
+				params: params,
+			})
+
+			if (data) {
+				console.log('data fetchAllColleges', data)
+
+				if (this.paginationCollege.page === 1) {
+					this.colleges = data.data
+				} else {
+					this.colleges = [...this.colleges, ...data.data]
 				}
-			} catch (error) {
-				console.error('An error occurred while fetching colleges:', error)
+				this.paginationCollege.page = data.meta.currentPage
+				this.paginationCollege.total = data.meta.totalItems
+				await this.fetchCollegeDetails(data.data)
+			} else {
+				console.error('Error fetching colleges:', error)
 			}
 		},
 
 		async fetchCollegeDetails(colleges) {
 			if (colleges.length === 0) return
 
-			try {
-				const detailsPromises = colleges.map(college =>
-					$fetch(`/api/open/college/${college.id}`)
-				)
-				const detailsResponses = await Promise.all(detailsPromises)
-				const updatedColleges = colleges.map((college, index) => ({
-					...college,
-					details: detailsResponses[index][0],
-				}))
-				this.colleges = this.colleges.map(college => {
-					const updated = updatedColleges.find(c => c.id === college.id)
-					return updated ? updated : college
-				})
-				console.log('data fetchAllColleges', this.colleges)
-			} catch (error) {
-				console.error(
-					'An error occurred while fetching college details:',
-					error
-				)
-			}
+			const detailsPromises = colleges.map(college =>
+				useApiFetch(`/api/open/college/${college.id}`)
+			)
+			const detailsResponses = await Promise.all(detailsPromises)
+
+			const updatedColleges = colleges.map((college, index) => ({
+				...college,
+				details: detailsResponses[index].data[0],
+			}))
+
+			this.colleges = this.colleges.map(college => {
+				const updated = updatedColleges.find(c => c.id === college.id)
+				return updated ? updated : college
+			})
 		},
 
 		async fetchBanner() {
-			try {
-				const data = await $fetch('/api/open/banner/all', {
-					params: { position: 'home-banner' },
-				})
-				console.log('data fetchBanner', data.data)
-
-				if (data) {
-					this.banner = data.data
-				}
-			} catch (error) {
-				console.error('An error occurred while fetching banner:', error)
+			const params = {
+				position: 'home-banner',
+			}
+			const { data, error } = await useApiFetch('/api/open/banner/all', {
+				params: params,
+			})
+			if (data) {
+				console.log('data fetchBanner', data)
+				this.banner = data.data
+			} else {
+				console.error('Error fetching banner:', error)
+				this.banner = []
 			}
 		},
 
@@ -89,23 +85,21 @@ export const useCollegeStore = defineStore('collegeStore', {
 				page: this.paginationStudyProgram.page,
 				full: true,
 			}
-			try {
-				const data = await $fetch('/api/open/studyprogram/all', {
-					params: params,
-				})
-				console.log('data fetchStudyPrograms', data)
 
-				if (data) {
-					if (this.paginationStudyProgram.page === 1) {
-						this.studyPrograms = data.data
-					} else {
-						this.studyPrograms = [...this.studyPrograms, ...data.data]
-					}
-					this.paginationStudyProgram.page = data.meta.currentPage
-					this.paginationStudyProgram.total = data.meta.totalItems
+			const { data, error } = await useApiFetch('/api/open/studyprogram/all', {
+				params: params,
+			})
+			console.log('data fetchStudyPrograms', data)
+			if (data) {
+				if (this.paginationStudyProgram.page === 1) {
+					this.studyPrograms = data.data
+				} else {
+					this.studyPrograms = [...this.studyPrograms, ...data.data]
 				}
-			} catch (error) {
-				console.error('An error occurred while fetching study programs:', error)
+				this.paginationStudyProgram.page = data.meta.currentPage
+				this.paginationStudyProgram.total = data.meta.totalItems
+			} else {
+				console.error('Error fetching study programs:', error)
 			}
 		},
 
